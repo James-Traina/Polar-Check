@@ -41,7 +41,7 @@ graph export "Results/check_lib_con.png", replace
 twoway ///
     lowess lib_con year if age == 1 & sex == 1 || ///
     lowess lib_con year if age == 1 & sex == 1 & year != 2022, ///
-    title("Stated Political Ideology, LOWESS") ///
+    title("Stated Political Ideology of 18-29 Men, LOWESS") ///
     xtitle("") xlabel(1985(5)2025) ///
     ytitle("% Liberal - % Conservative") ylabel(-25(5)35) ///
     legend(order(1 "Full" 2 "Drop 2022"))
