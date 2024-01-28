@@ -15,10 +15,11 @@ replace age = 2 if inrange(age, 30, 39)
 
 generate lib_con = 100 * (inrange(polviews, 1, 3) - inrange(polviews, 5, 7))
 
+generate men = (sex == 1)
 replace mode = . if mode == 3 // hybrid, tiny share
-eststo: regress lib_con ibn.mode, noconstant
-eststo: regress lib_con ibn.mode if year == 2022, noconstant
-esttab, label
+eststo: regress men ibn.mode [aweight = wtsscomp], noconstant
+eststo: regress men ibn.mode if year == 2022 [aweight = wtsscomp], noconstant
+esttab, label se nostar
 eststo clear
 
 collapse (count) lib_con [aweight = wtsscomp], by(age sex year)
@@ -36,4 +37,4 @@ xtline lib_con, overlay ///
     title("Stated Political Ideology") ///
     xtitle("") xlabel(2000(5)2025) ///
     ytitle("Sample Size") ylabel(100(50)500)
-graph export "Results/nob2.png", replace
+graph export "Results/nob.png", replace
